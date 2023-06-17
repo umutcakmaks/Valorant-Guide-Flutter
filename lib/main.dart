@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:valorantguide/agent/AgentPage.dart';
+import 'package:valorantguide/collection/CollectionPage.dart';
+import 'package:valorantguide/gamemode/GameModePage.dart';
+import 'package:valorantguide/map/MapPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -44,32 +48,63 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  int _selectedIndex = 0;
+
+  static const List<Widget> _widgetPage = [
+    AgentPage(),
+    CollectionPage(),
+    MapPage(),
+    GameModePage()
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Image(image: AssetImage("assets/valorantguide.png"), width: 131, height: 35,),),
+        title: const Center(child: Image(image: AssetImage("assets/images/valorantguide.png"), width: 131, height: 35,),),
         centerTitle: true,
         elevation: 1,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Valorant Guide',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: const GNav(
-          tabs: [
-            GButton(icon: Icons.group),
-            GButton(icon: Icons.backpack),
-            GButton(icon: Icons.map),
+      body: _widgetPage.elementAt(_selectedIndex),
+      bottomNavigationBar: Container(
+        color: const Color(0xFF65162A),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0,),
+          child: GNav(
+              gap: 8,
+              backgroundColor: const Color(0xFF65162A),
+              color: const Color(0xFFff4655),
+              activeColor: const Color(0xFFff4655),
+              tabBackgroundColor: const Color(0xD27E102C),
+              padding: const EdgeInsets.all(8),
+              selectedIndex: _selectedIndex,
+              onTabChange: (index){
+                setState(() {
+                  _selectedIndex = index;
+                });
+              },
+              tabs: const [
+                GButton(
+                    icon: Icons.group,
+                    text: "Agents",
+                ),
+                GButton(
+                    icon: Icons.backpack,
+                    text: "Collection",
+                ),
+                GButton(
+                    icon: Icons.map,
+                    text: "Maps",
+                ),
+                GButton(
+                  icon: Icons.gamepad,
+                  text: "Game Modes",
+                ),
 
-          ]
+              ]
+          ),
+        ),
       ),
     );
   }
