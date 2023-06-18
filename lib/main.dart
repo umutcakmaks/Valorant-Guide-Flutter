@@ -74,8 +74,8 @@ class _MyHomePageState extends State<MyHomePage> {
           child: GNav(
               gap: 8,
               backgroundColor: const Color(0xFF65162A),
-              color: const Color(0xFFff4655),
-              activeColor: const Color(0xFFff4655),
+              color: const Color(0xE0FFFFFF),
+              activeColor: const Color(0xE0FFFFFF),
               tabBackgroundColor: const Color(0xD27E102C),
               padding: const EdgeInsets.all(8),
               selectedIndex: _selectedIndex,
