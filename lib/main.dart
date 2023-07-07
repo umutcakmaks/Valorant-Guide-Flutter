@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:valorantguide/agent/AgentPage.dart';
+import 'package:valorantguide/agent/AgentNavigator.dart';
+import 'package:valorantguide/agent/bloc/agent.dart';
 import 'package:valorantguide/collection/CollectionPage.dart';
 import 'package:valorantguide/gamemode/GameModePage.dart';
 import 'package:valorantguide/map/MapPage.dart';
+import 'package:valorantguide/repository/agent_repository.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,26 +17,31 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        appBarTheme: const AppBarTheme(
-          color: Color(0xFF65162A),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AgentBloc>(create: (context) => AgentBloc(agentRepository: AgentRepository())..add(GetAgentData())),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          appBarTheme: const AppBarTheme(
+            color: Color(0xFF65162A),
+          ),
+          scaffoldBackgroundColor: const Color(0xFFff4655),
+          cardTheme: CardTheme(
+            color: const Color(0xFFAB323D),
+            elevation: 0,
+            shape:  RoundedRectangleBorder(
+              side: const BorderSide(
+                color: Color(0xFF65162A),
+                width: 1,
+              ),
+              borderRadius: BorderRadius.circular(10.0),
+            )
+          ),
         ),
-        scaffoldBackgroundColor: const Color(0xFFff4655),
-        cardTheme: CardTheme(
-          color: const Color(0xFFAB323D),
-          elevation: 0,
-          shape:  RoundedRectangleBorder(
-            side: const BorderSide(
-              color: Color(0xFF65162A),
-              width: 1,
-            ),
-            borderRadius: BorderRadius.circular(10.0),
-          )
-        ),
+        home: const MyHomePage(),
       ),
-      home: const MyHomePage(),
     );
   }
 }
@@ -52,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
   static const List<Widget> _widgetPage = [
-    AgentPage(),
+    AgentNavigator(),
     CollectionPage(),
     MapPage(),
     GameModePage()
@@ -61,12 +69,13 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(child: Image(image: AssetImage("assets/images/valorantguide.png"), width: 131, height: 35,),),
-        centerTitle: true,
-        elevation: 1,
+      body: SafeArea(
+        top: false,
+        child: IndexedStack(
+          index: _selectedIndex,
+          children: _widgetPage,
+        ),
       ),
-      body: _widgetPage.elementAt(_selectedIndex),
       bottomNavigationBar: Container(
         color: const Color(0xFF65162A),
         child: Padding(

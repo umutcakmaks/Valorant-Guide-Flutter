@@ -1,6 +1,6 @@
 # valorantguide
 
-A new Flutter project.
+The under construction. I will be soon back.
 
 ## Getting Started
 
