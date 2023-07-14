@@ -24,26 +24,37 @@ class _AgentAbilitiesState extends State<AgentAbilities> {
                     children: [
                       Row(
                         children: [
-                          Image.network(
-                            ability.displayIcon,
-                            width: 50,
-                            height: 50,
-                            opacity: const AlwaysStoppedAnimation(.75),
-                          ),
+                          ability.displayIcon != ""
+                              ? Image.network(
+                                  ability.displayIcon,
+                                  width: 50,
+                                  height: 50,
+                                  opacity: const AlwaysStoppedAnimation(.75),
+                                )
+                              : Image.asset(
+                                  "assets/images/orb.png",
+                                  width: 50,
+                                  height: 50,
+                                  opacity: const AlwaysStoppedAnimation(.75),
+                                ),
                           Padding(
                             padding: const EdgeInsets.only(left: 12.0),
-                            child: Text(
-                              ability.displayName,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600),
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width* 0.43,
+                              child: Text(
+                                ability.displayName,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600),
+                              ),
                             ),
                           ),
                         ],
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0, bottom: 12.0),
+                        padding: const EdgeInsets.only(
+                            left: 8.0, right: 8.0, top: 8.0, bottom: 12.0),
                         child: Text(
                           ability.description,
                           textAlign: TextAlign.justify,

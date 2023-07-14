@@ -15,7 +15,7 @@ class AgentDetailPage extends StatefulWidget {
 
 class _AgentDetailPageState extends State<AgentDetailPage> {
   final GlobalKey<SliderDrawerState> _sliderDrawerKey =
-  GlobalKey<SliderDrawerState>();
+      GlobalKey<SliderDrawerState>();
   bool isHovered = false;
   bool isHoveredDescription = false;
 
@@ -35,6 +35,13 @@ class _AgentDetailPageState extends State<AgentDetailPage> {
                   color: Colors.white,
                   fontSize: 28,
                   fontFamily: 'valorant',
+                  shadows: [
+                    Shadow(
+                      offset: Offset(3.0, 3.0),
+                      blurRadius: 5.0,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -58,7 +65,7 @@ class _AgentDetailPageState extends State<AgentDetailPage> {
             slideDirection: SlideDirection.RIGHT_TO_LEFT,
             appBar: null,
             key: _sliderDrawerKey,
-            sliderOpenSize: MediaQuery.of(context).size.width*0.60,
+            sliderOpenSize: MediaQuery.of(context).size.width * 0.60,
             slider: const AgentAbilities(),
             child: Container(
               color: const Color(0xFFff4655),
@@ -87,13 +94,15 @@ class _AgentDetailPageState extends State<AgentDetailPage> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 8.0, left: 12.0),
+                                  padding: const EdgeInsets.only(
+                                      top: 8.0, left: 12.0),
                                   child: GestureDetector(
                                     child: Image.network(
                                       state.agent.role.displayIcon,
                                       width: 40,
                                       height: 40,
-                                      opacity: const AlwaysStoppedAnimation(.75),
+                                      opacity:
+                                          const AlwaysStoppedAnimation(.75),
                                     ),
                                     onLongPress: () {
                                       setState(() {
@@ -109,7 +118,8 @@ class _AgentDetailPageState extends State<AgentDetailPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 5.0, left: 8.0),
+                                  padding: const EdgeInsets.only(
+                                      top: 5.0, left: 8.0),
                                   child: isHovered
                                       ? Column(
                                           crossAxisAlignment:
@@ -131,11 +141,11 @@ class _AgentDetailPageState extends State<AgentDetailPage> {
                             ),
                             isHoveredDescription
                                 ? SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.75,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.70,
                                     child: Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 10.0, left: 8.0),
+                                      padding: const EdgeInsets.only(
+                                          bottom: 10.0, left: 8.0),
                                       child: Text(
                                         state.agent.role.description,
                                         textAlign: TextAlign.center,
@@ -149,11 +159,48 @@ class _AgentDetailPageState extends State<AgentDetailPage> {
                                 : const Text(""),
                           ],
                         ),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.only(top: 8.0, right: 12.0),
+                            child: GestureDetector(
+                              child: Image.network(
+                                state.agent.abilities[0].slot == "Ability2"
+                                    ? state.agent.abilities[0].displayIcon
+                                    : state.agent.abilities[1].slot ==
+                                            "Ability2"
+                                        ? state.agent.abilities[1].displayIcon
+                                        : state.agent.abilities[2].slot ==
+                                                "Ability2"
+                                            ? state
+                                                .agent.abilities[2].displayIcon
+                                            : state.agent.abilities[3].slot ==
+                                                    "Ability2"
+                                                ? state.agent.abilities[3]
+                                                    .displayIcon
+                                                : state.agent.abilities[1]
+                                                    .displayIcon,
+                                width: 40,
+                                height: 40,
+                                opacity: const AlwaysStoppedAnimation(.75),
+                              ),
+                              onTap: () {
+                                if (_sliderDrawerKey
+                                    .currentState!.isDrawerOpen) {
+                                  _sliderDrawerKey.currentState!.closeSlider();
+                                } else {
+                                  _sliderDrawerKey.currentState!.openSlider();
+                                }
+                              },
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                     Padding(
-                      padding:
-                          const EdgeInsets.only(bottom: 8.0, left: 18, right: 18),
+                      padding: const EdgeInsets.only(
+                          bottom: 8.0, left: 18, right: 18),
                       child: Text(
                         state.agent.description,
                         textAlign: TextAlign.justify,

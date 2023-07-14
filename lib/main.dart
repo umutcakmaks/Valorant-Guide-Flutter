@@ -5,8 +5,10 @@ import 'package:valorantguide/agent/AgentNavigator.dart';
 import 'package:valorantguide/agent/bloc/agent.dart';
 import 'package:valorantguide/collection/CollectionPage.dart';
 import 'package:valorantguide/gamemode/GameModePage.dart';
-import 'package:valorantguide/map/MapPage.dart';
+import 'package:valorantguide/map/MapNavigator.dart';
+import 'package:valorantguide/map/bloc/map.dart';
 import 'package:valorantguide/repository/agent_repository.dart';
+import 'package:valorantguide/repository/map_repository.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,6 +22,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AgentBloc>(create: (context) => AgentBloc(agentRepository: AgentRepository())..add(GetAgentData())),
+        BlocProvider<MapBloc>(create: (context) => MapBloc(mapRepository: MapRepository())..add(GetMapData())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -62,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
   static const List<Widget> _widgetPage = [
     AgentNavigator(),
     CollectionPage(),
-    MapPage(),
+    MapNavigator(),
     GameModePage()
   ];
 

@@ -1,39 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:valorantguide/agent/bloc/agent.dart';
-import 'package:valorantguide/models/agent.dart';
+import 'package:valorantguide/map/bloc/map.dart';
+import 'package:valorantguide/models/map.dart';
 
-class BuildAgentCard extends StatelessWidget {
-  final Agent agent;
-  final List<Agent> agentList;
-  const BuildAgentCard(
-      {super.key, required this.agent, required this.agentList});
+class BuildMapCard extends StatelessWidget {
+  final Maps map;
+  final List<Maps> mapList;
+  const BuildMapCard({super.key, required this.map, required this.mapList});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AgentBloc, AgentState>(builder: (context, state) {
+    return BlocBuilder<MapBloc, MapState>(builder: (context, state) {
       return Card(
         child: InkWell(
           borderRadius: BorderRadius.circular(10.0),
           highlightColor: const Color(0x88ff4655),
           splashColor: const Color(0xFF65162A),
           onTap: () {
-            BlocProvider.of<AgentBloc>(context)
-                .add(SelectedAgent(agent, agentList));
-            Navigator.pushNamed(context, '/agentdetail');
+            BlocProvider.of<MapBloc>(context).add(SelectedMap(map, mapList));
+            Navigator.pushNamed(context, '/mapdetail');
           },
-          child: Column(
+          child: Stack(
+            alignment: Alignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
                 child: Image.network(
-                  agent.displayIcon,
+                  map.listViewIcon,
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Text(
-                  agent.displayName,
+                  map.displayName == "POLİGON" ? "POLIGON" : map.displayName,
                   style: const TextStyle(
                     color: Colors.white,
                     fontFamily: 'valorant',
@@ -48,7 +47,6 @@ class BuildAgentCard extends StatelessWidget {
                   ),
                 ),
               ),
-              // Diğer bilgileri ekleyebilirsiniz
             ],
           ),
         ),

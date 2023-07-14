@@ -40,10 +40,18 @@ class _AgentPageState extends State<AgentPage> {
                         child: Text(
                           "AGENTS",
                           style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 32,
-                              fontFamily: 'valorant',
-                              fontWeight: FontWeight.w800),
+                            color: Colors.white,
+                            fontSize: 32,
+                            fontFamily: 'valorant',
+                            fontWeight: FontWeight.w800,
+                            shadows: [
+                              Shadow(
+                                offset: Offset(3.0, 3.0),
+                                blurRadius: 5.0,
+                                color: Color.fromARGB(255, 0, 0, 0),
+                              ),
+                            ],
+                          ),
                         )),
                   ),
                   ListView.builder(
@@ -68,7 +76,7 @@ class _AgentPageState extends State<AgentPage> {
                         child: Row(
                           children: agents.map((agent) {
                             return Expanded(
-                                child: buildAgentCard(
+                                child: BuildAgentCard(
                               agent: agent,
                               agentList: state.agent,
                             ));
@@ -105,10 +113,18 @@ class _AgentPageState extends State<AgentPage> {
                         child: Text(
                           "AGENTS",
                           style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 32,
-                              fontFamily: 'valorant',
-                              fontWeight: FontWeight.w800),
+                            color: Colors.white,
+                            fontSize: 32,
+                            fontFamily: 'valorant',
+                            fontWeight: FontWeight.w800,
+                            shadows: [
+                              Shadow(
+                                offset: Offset(3.0, 3.0),
+                                blurRadius: 5.0,
+                                color: Color.fromARGB(255, 0, 0, 0),
+                              ),
+                            ],
+                          ),
                         )),
                   ),
                   ListView.builder(
@@ -133,7 +149,7 @@ class _AgentPageState extends State<AgentPage> {
                         child: Row(
                           children: agents.map((agent) {
                             return Expanded(
-                                child: buildAgentCard(
+                                child: BuildAgentCard(
                               agent: agent,
                               agentList: state.agentList,
                             ));
@@ -159,8 +175,8 @@ class _AgentPageState extends State<AgentPage> {
               centerTitle: true,
               elevation: 1,
             ),
-            body: const Column(
-              children: [
+            body: Column(
+              children: const [
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: Align(
@@ -168,10 +184,18 @@ class _AgentPageState extends State<AgentPage> {
                       child: Text(
                         "AGENTS",
                         style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 32,
-                            fontFamily: 'valorant',
-                            fontWeight: FontWeight.w800),
+                          color: Colors.white,
+                          fontSize: 32,
+                          fontFamily: 'valorant',
+                          fontWeight: FontWeight.w800,
+                          shadows: [
+                            Shadow(
+                              offset: Offset(3.0, 3.0),
+                              blurRadius: 5.0,
+                              color: Color.fromARGB(255, 0, 0, 0),
+                            ),
+                          ],
+                        ),
                       )),
                 ),
                 Flexible(
